@@ -4,27 +4,36 @@ Claude Code plugin marketplace for creating and maintaining workshops.de trainin
 
 ## Plugins
 
-### `workshops-slides`
+### `workshops-courses`: for every training repository
 
-For the workshops.de training repositories: the Slidev slide repositories (created from
-[`workshop-slides-template`](https://github.com/workshops-de/workshop-slides-template)) and the
-Google Slides workshops with tasks in `lessons/` (e.g. `angular-workshop-slides`, `workshop-claude-code`).
+Lessons and tasks in `lessons/`, whether the slides are in Slidev or Google Slides
+(e.g. `angular-workshop-slides`, `workshop-claude-code` and all Slidev slide repositories).
 
-| Skill                       | Use it to …                                                      |
-| --------------------------- | ---------------------------------------------------------------- |
-| `lesson-section-interview`  | define one lesson section in an interview with the trainer      |
-| `lesson-migration`          | migrate raw Slidev slides into a 4-MAT lesson                   |
-| `lesson-review`             | review a lesson for duplicates, tone, examples and slide quality|
-| `slidev-authoring`          | follow the slide conventions (4-MAT, layouts, code blocks)      |
-| `course-content`            | follow the lesson and task conventions (lesson.yml, task.yml, …)|
-| `git-conventions`           | write Conventional Commits and branch names                     |
-| `translate-task-de`         | translate tasks into German (`*.de.md`), or update stale ones   |
+| Skill               | Use it to …                                                          |
+| ------------------- | -------------------------------------------------------------------- |
+| `course-content`    | follow the lesson and task conventions (lesson.yml, task.yml, …)     |
+| `translate-task-de` | translate tasks into German (`*.de.md`), or update stale ones        |
+| `git-conventions`   | write Conventional Commits and branch names                          |
 
-Skills load automatically when they fit the task, or explicitly with `/workshops-slides:<skill>`.
+### `workshops-slidev`: additionally for Slidev slide repositories
+
+Repositories created from [`workshop-slides-template`](https://github.com/workshops-de/workshop-slides-template)
+and single-deck Slidev repositories. Depends on `workshops-courses`.
+
+| Skill                      | Use it to …                                                       |
+| -------------------------- | ----------------------------------------------------------------- |
+| `slidev-authoring`         | follow the slide conventions (4-MAT, layouts, code blocks)        |
+| `lesson-section-interview` | define one lesson section in an interview with the trainer       |
+| `lesson-migration`         | migrate raw Slidev slides into a 4-MAT lesson                    |
+| `lesson-review`            | review a lesson for duplicates, tone, examples and slide quality |
+
+Skills load automatically when they fit the task, or explicitly with `/<plugin>:<skill>`, e.g.
+`/workshops-courses:translate-task-de` or `/workshops-slidev:lesson-review`.
 
 ## Usage
 
-Every slide repository enables the plugin in its committed `.claude/settings.json`:
+Every training repository enables the plugins in its committed `.claude/settings.json`. Slidev
+repositories enable both, Google Slides workshops only `workshops-courses`:
 
 ```json
 {
@@ -35,19 +44,21 @@ Every slide repository enables the plugin in its committed `.claude/settings.jso
     }
   },
   "enabledPlugins": {
-    "workshops-slides@workshops-de": true
+    "workshops-courses@workshops-de": true,
+    "workshops-slidev@workshops-de": true
   }
 }
 ```
 
-Clone a slide repository, start Claude Code in it (terminal, desktop app or IDE) and trust the folder
-when asked. The plugin is then available and updates automatically.
+Clone the repository, start Claude Code in it (terminal, desktop app or IDE) and trust the folder
+when asked. The plugins are then available and update automatically.
 
-Outside a slide repository, add it yourself:
+Outside a training repository, add them yourself:
 
 ```
 /plugin marketplace add workshops-de/claude-plugins
-/plugin install workshops-slides@workshops-de
+/plugin install workshops-courses@workshops-de
+/plugin install workshops-slidev@workshops-de
 ```
 
 **Cloud sessions** (claude.ai/code) do not load plugins from a repository's `.claude/settings.json`.

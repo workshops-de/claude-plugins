@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Writes Cursor rules (.cursor/rules/*.mdc) generated from the plugin's skills into slide
+// Writes Cursor rules (.cursor/rules/*.mdc) generated from the plugins' skills into slide
 // repositories, so Cursor and Claude Code follow the same conventions.
 //
 // Usage: node scripts/export-cursor-rules.mjs <repo-dir> [<repo-dir> ...]
@@ -9,17 +9,19 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const skillsDir = path.join(import.meta.dirname, '..', 'plugins', 'workshops-slides', 'skills');
+const pluginsDir = path.join(import.meta.dirname, '..', 'plugins');
 
 const rules = [
   {
     file: 'slidev-rules.mdc',
+    plugin: 'workshops-slidev',
     skill: 'slidev-authoring',
     frontmatter: 'description: Rules for creating slidev pages\nglobs:\nalwaysApply: true',
     lessonsOnly: false,
   },
   {
     file: 'course-content-rules.mdc',
+    plugin: 'workshops-courses',
     skill: 'course-content',
     frontmatter:
       'description: Rules for creating course lessons and tasks\nglobs:\n  - "**/lessons/**"\n  - "**/tasks/**"\nalwaysApply: false',
@@ -27,8 +29,8 @@ const rules = [
   },
 ];
 
-function skillBody(name) {
-  const text = fs.readFileSync(path.join(skillsDir, name, 'SKILL.md'), 'utf8');
+function skillBody(plugin, name) {
+  const text = fs.readFileSync(path.join(pluginsDir, plugin, 'skills', name, 'SKILL.md'), 'utf8');
   return text.replace(/^---\n[\s\S]*?\n---\n+/, '');
 }
 
@@ -45,7 +47,7 @@ for (const repo of repos) {
   for (const rule of rules) {
     if (rule.lessonsOnly && !hasLessons) continue;
     const header = `<!-- Generated from the ${rule.skill} skill in https://github.com/workshops-de/claude-plugins. Edit it there and re-export. -->\n\n`;
-    fs.writeFileSync(path.join(target, rule.file), `---\n${rule.frontmatter}\n---\n\n${header}${skillBody(rule.skill)}`);
+    fs.writeFileSync(path.join(target, rule.file), `---\n${rule.frontmatter}\n---\n\n${header}${skillBody(rule.plugin, rule.skill)}`);
     console.log(`${repo}: ${rule.file}`);
   }
 }

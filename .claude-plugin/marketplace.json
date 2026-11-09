@@ -9,9 +9,14 @@
   },
   "plugins": [
     {
-      "name": "workshops-slides",
-      "source": "./plugins/workshops-slides",
-      "description": "Create and maintain workshops.de Slidev slide repositories: lessons, tasks, reviews and conventions"
+      "name": "workshops-courses",
+      "source": "./plugins/workshops-courses",
+      "description": "workshops.de course conventions for all trainings: lessons, tasks, German translations and git conventions"
+    },
+    {
+      "name": "workshops-slidev",
+      "source": "./plugins/workshops-slidev",
+      "description": "workshops.de Slidev slides: slide conventions, section outlines, migration of raw slides and lesson reviews"
     }
   ]
 }

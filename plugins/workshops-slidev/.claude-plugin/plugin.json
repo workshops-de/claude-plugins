@@ -1,0 +1,13 @@
+{
+  "name": "workshops-slidev",
+  "description": "workshops.de Slidev slides: slide conventions, section outlines, migration of raw slides and lesson reviews",
+  "author": {
+    "name": "workshops.de",
+    "url": "https://workshops.de"
+  },
+  "homepage": "https://github.com/workshops-de/claude-plugins",
+  "repository": "https://github.com/workshops-de/claude-plugins",
+  "license": "MIT",
+  "keywords": ["workshops.de", "slidev", "slides", "4-mat"],
+  "dependencies": ["workshops-courses"]
+}
