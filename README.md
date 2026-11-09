@@ -6,8 +6,9 @@ Claude Code plugin marketplace for creating and maintaining workshops.de trainin
 
 ### `workshops-slides`
 
-For the Slidev slide repositories (`*-slides`, created from
-[`workshop-slides-template`](https://github.com/workshops-de/workshop-slides-template)).
+For the workshops.de training repositories: the Slidev slide repositories (created from
+[`workshop-slides-template`](https://github.com/workshops-de/workshop-slides-template)) and the
+Google Slides workshops with tasks in `lessons/` (e.g. `angular-workshop-slides`, `workshop-claude-code`).
 
 | Skill                       | Use it to …                                                      |
 | --------------------------- | ---------------------------------------------------------------- |
@@ -17,6 +18,7 @@ For the Slidev slide repositories (`*-slides`, created from
 | `slidev-authoring`          | follow the slide conventions (4-MAT, layouts, code blocks)      |
 | `course-content`            | follow the lesson and task conventions (lesson.yml, task.yml, …)|
 | `git-conventions`           | write Conventional Commits and branch names                     |
+| `translate-task-de`         | translate tasks into German (`*.de.md`), or update stale ones   |
 
 Skills load automatically when they fit the task, or explicitly with `/workshops-slides:<skill>`.
 
