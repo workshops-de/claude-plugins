@@ -1,0 +1,17 @@
+{
+  "name": "workshops-de",
+  "owner": {
+    "name": "workshops.de",
+    "url": "https://workshops.de"
+  },
+  "metadata": {
+    "description": "Claude Code plugins for creating and maintaining workshops.de trainings"
+  },
+  "plugins": [
+    {
+      "name": "workshops-slides",
+      "source": "./plugins/workshops-slides",
+      "description": "Create and maintain workshops.de Slidev slide repositories: workshop generation, lessons, tasks, reviews and conventions"
+    }
+  ]
+}
