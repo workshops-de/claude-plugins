@@ -144,7 +144,37 @@ const c = add(1, 2);
 
 ## Layouts
 
-- If a layout repeats during slide, create a new slidev layout and reuse it for other slides
+- **Prefer layouts over custom HTML.** `@workshops.de/slidev-theme` provides:
+  - `cover` - title slide of a deck, `end` - closing slide
+  - `section` / `sub-section` - section dividers
+  - `why`, `little-what`, `what-if`, `task` - the 4-MAT phases (see Didactics)
+  - `default` - regular content
+  - `two-cols`, `two-cols-header` - two columns (text + image, or two code examples)
+  - `image-left` / `image-right` - content next to an image
+  - `ask-me-anything` - Q&A slide
+- Slidev's built-in `center`, `fact`, `quote` and `statement` also work, but without the theme's look;
+  prefer the theme layouts above.
+- Configure a layout with `layoutClass` when needed:
+  ```md
+  ---
+  layout: two-cols
+  layoutClass: gap-16
+  ---
+  ```
+- Use the `::right::` slot for the second column:
+  ```md
+  ---
+  layout: two-cols
+  ---
+
+  # Left column
+
+  ::right::
+
+  # Right column
+  ```
+- If a custom arrangement repeats across slides, turn it into a layout instead of copying HTML.
+- Keep bullet lists short: 5-8 points at most, each fitting on one line.
 
 ## Didactics
 

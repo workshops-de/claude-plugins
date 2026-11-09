@@ -50,6 +50,19 @@ Outside a slide repository, add it yourself:
 
 **Cloud sessions** (claude.ai/code) do not load plugins from a repository's `.claude/settings.json`.
 
+## Cursor
+
+Cursor reads `.cursor/rules/*.mdc`, not Claude Code plugins. Generate the Cursor rules from the skills
+so both tools follow the same conventions:
+
+```bash
+node scripts/export-cursor-rules.mjs ../ki-software-engineer-slides ../spring-boot-slides
+```
+
+Lesson repositories get `slidev-rules.mdc` and `course-content-rules.mdc`, single-deck repositories
+`slidev-rules.mdc`. Run it after changing `slidev-authoring` or `course-content` and commit the result
+in each slide repository.
+
 ## Updating
 
 Change files under `plugins/` and push to `main`. There is no version field: every commit is a new
