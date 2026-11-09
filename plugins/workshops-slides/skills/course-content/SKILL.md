@@ -1,28 +1,33 @@
 ---
 name: course-content
-description: "Rules for workshops.de course content: lesson folders under lessons/, lesson.yml, task.yml, body.md, hint.md, bonus.md and trainer_hint.md. Use when creating or editing lessons or tasks in a workshops.de slide repository."
+description: "Rules for workshops.de course content: lesson folders under lessons/, lesson.yml (Slidev or Google Slides), stepped task folders, task.yml, body.md, hint.md, bonus.md, trainer_hint.md and German *.de.md translations. Use when creating or editing lessons or tasks in a workshops.de slide repository."
 ---
 
 ## Lesson Structure
 
-Each lesson is a folder in `/lessons/` with a numeric prefix for ordering (e.g., `01-example-lesson`).
+Each lesson is a folder in `/lessons/` with a two-digit prefix for ordering (e.g., `03-angular-services-http`).
+Lessons count up by one (`01`, `02`, `03` …); tasks use stepped numbers (see below).
 
-### Required Files
+A lesson has slides in one of two forms, set by `slides_type` in `lesson.yml`:
+
+- **`slidev`**: the slides live in the repository, with an entry file named like the folder
+- **`google_slides`**: the slides live in Google Slides (`google_slide_id`); the folder has no slide files
 
 ```
 lessons/
 └── 01-example-lesson/
     ├── lesson.yml              # Lesson configuration (required)
-    ├── 01-example-lesson.md    # Main Slidev presentation (required)
-    ├── slides/                 # 4-MAT slide files (optional)
+    ├── 01-example-lesson.md    # Slidev entry point (only for slides_type: slidev)
+    ├── slides/                 # 4-MAT topic files (only for slides_type: slidev)
     │   └── topic-name/
     │       ├── why.md
     │       ├── what.md
     │       ├── how.md
-    │       └── what-if.md
-    └── tasks/                  # Task folders (optional)
-        └── 01-first-task/
-            └── ...
+    │       ├── what-if.md
+    │       └── task.md
+    └── tasks/
+        ├── 10-first-task/
+        └── 20-second-task/
 ```
 
 ### lesson.yml Configuration
@@ -35,11 +40,11 @@ position: 1
 # Trainer (email or slug)
 trainer: trainer@workshops.de
 
-# Code repository
+# Code repository (if the workshop has one)
 github_code_url: https://github.com/org/repo
 git_tag_starting: main
 
-# Presentation type: "google_slides" or "slidev"
+# Presentation type: "slidev" or "google_slides"
 slides_type: slidev
 
 # For Google Slides only
@@ -58,18 +63,21 @@ deprecated: false
 
 ## Task Structure
 
-Each task is a folder in `/lessons/{lesson}/tasks/` with a numeric prefix for ordering.
-
-### Required Files
+Each task is a folder in `/lessons/{lesson}/tasks/` named `NN-task-slug`, where `NN` equals the task's
+`position`. Positions are **stepped by 10** (`10`, `20`, `30` …), so a new task fits between two existing
+ones without renumbering: to insert between `10-service` and `20-http`, create `15-new-task` with
+`position: 15`. Only renumber when there is no gap left.
 
 ```
 tasks/
-└── 01-first-task/
+└── 10-first-task/
     ├── task.yml            # Task configuration (required)
     ├── body.md             # Main task description (required)
     ├── hint.md             # Hints for participants (optional)
     ├── bonus.md            # Bonus challenges (optional)
     ├── trainer_hint.md     # Notes for trainers only (optional)
+    ├── body.de.md          # German translations (optional, see below)
+    ├── hint.de.md
     └── assets/             # Images and media (optional)
         └── screenshot.png
 ```
@@ -79,17 +87,29 @@ tasks/
 ```yaml
 # Required
 title: "Task Title"
-position: 1
+position: 10
 
 # Optional metadata
 category: "Basics"
-preparation: false
+preparation: false             # true only for setup tasks done before the session
 estimated_time_in_minutes: 15
-always_unlocked: false
+always_unlocked: false         # true only for setup tasks that must work before anything is unlocked
 
-# Git Integration (for code diffs)
-git_tag_completed: solution-01-task-name
+# Git integration, only for workshops with a solution repository
+git_tag_completed: solution--first-task
+
+# German title (when the task has German translations)
+translations:
+  de:
+    title: "Aufgabentitel"
 ```
+
+### German Translations
+
+English is the source of truth. German translations sit next to the English files with a `.de.md`
+suffix (`body.de.md`, `hint.de.md`, `bonus.de.md`, `trainer_hint.de.md`) plus `translations.de.title`
+in `task.yml`; the platform imports them as `translations.de.*`. Translate a task completely or not at
+all, and update the German files whenever the English ones change.
 
 **Note**: Markdown content is loaded from separate `.md` files, NOT from the YAML file.
 
@@ -207,7 +227,7 @@ During sync, relative paths are automatically converted to absolute GitHub Raw U
 Use `git_tag_completed` in `task.yml` to link to the solution state:
 
 ```yaml
-git_tag_completed: solution-01-first-task
+git_tag_completed: solution--first-task
 ```
 
 This enables:
@@ -217,8 +237,10 @@ This enables:
 
 ### Naming Convention
 
-- Format: `solution-{position}-{task-slug}`
-- Example: `solution-01-first-task`, `solution-02-add-component`
+- Format: `solution--{task-slug}` (double dash, no position, so renumbering a task keeps its tag)
+- Example: `solution--service`, `solution--mock-components`
+- Workshops without a solution repository (participants build everything themselves) omit
+  `git_tag_completed` entirely
 
 ## Quality Checklist
 

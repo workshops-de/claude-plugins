@@ -5,44 +5,54 @@ description: "Conventions for writing Slidev slides at workshops.de: topic files
 
 ## Structure
 
-- Each topic gets its own file, which gets linked in `/slides.md`
-- Each topic file is saved in /pages/{topic}/{name-of-the-topic}.md
-- A topic can consist of the files (see 4-mat principle)
-  - why.md
-  - how.md
-  - what.md
-  - task.md
-  - what-if.md
-- Each topic starts with a cover slide
-- Each topic ends with a task slide (also a cover with the title of the respective exercise)
+Applies to lessons with `slides_type: slidev`. Each lesson has an entry file named like its folder and
+one folder per topic under `slides/`. A topic follows 4-MAT and consists of these files:
+
+- `why.md`: starts with a cover slide for the topic
+- `what.md`
+- `how.md`
+- `what-if.md`
+- `task.md`: ends the topic with a task slide (a cover with the title of the exercise)
 
 ### Example
 
 ```
-/
-├── slides.md                   # Main slides file
-├── sources.md                  # Sources of the presentation
-├── pages/                      # Topic organization
-│   ├── introduction/           # Topic folder
-│   ├── components/             # Topic folder
-│   └── services/               # Topic folder
-│       ├── why.md              # Topic file
-│       ├── how.md              # Topic file
-│       ├── what.md             # Topic file
-│       ├── task.md             # Topic file
-│       └── what-if.md          # Topic file
-├── components/                 # Reusable slide components
-├── snippets/                   # Code snippets
-└── assets/                     # Images and media
+lessons/
+└── 02-llm-introduction/
+    ├── lesson.yml
+    ├── 02-llm-introduction.md      # Entry file: headmatter + links to the topic files
+    ├── slides/
+    │   └── llm-introduction/       # Topic folder
+    │       ├── why.md
+    │       ├── what.md
+    │       ├── how.md
+    │       ├── what-if.md
+    │       └── task.md
+    └── tasks/
+public/
+└── 02-llm-introduction/            # Images, referenced as /02-llm-introduction/...
 ```
 
-### Link in slides.md
+### Linking topic files in the entry file
+
+The entry file's headmatter (theme, `base`, `out`, addons) links the first topic file with `src`; every
+further file gets its own `src` slide:
 
 ```md
 ---
-src: ./pages/introduction/welcome.md
+theme: '@workshops.de/slidev-theme'
+base: /02-llm-introduction/
+out: ../../dist/02-llm-introduction
+src: ./slides/llm-introduction/why.md
+---
+
+---
+src: ./slides/llm-introduction/what.md
 ---
 ```
+
+Code highlighting, Mermaid, shortcuts and styles come from the theme; do not add `setup/` or `styles/`
+folders to the repository.
 
 ## Slide
 
