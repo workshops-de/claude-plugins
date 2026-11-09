@@ -51,6 +51,30 @@ src: ./slides/llm-introduction/what.md
 ---
 ```
 
+### Single-deck repositories
+
+A few repositories hold one single deck instead of lessons (e.g. `ai-software-engineers-slides`):
+`slides.md` in the root links topic files under `pages/<topic>/`, with the same 4-MAT files:
+
+```
+/
+├── slides.md                   # Entry file: headmatter + src links
+├── sources.md
+└── pages/
+    └── services/               # Topic folder
+        ├── why.md
+        ├── what.md
+        ├── how.md
+        ├── what-if.md
+        └── task.md
+```
+
+```md
+---
+src: ./pages/services/why.md
+---
+```
+
 Code highlighting, Mermaid, shortcuts and styles come from the theme; do not add `setup/` or `styles/`
 folders to the repository.
 
