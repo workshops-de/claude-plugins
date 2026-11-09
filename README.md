@@ -9,17 +9,14 @@ Claude Code plugin marketplace for creating and maintaining workshops.de trainin
 For the Slidev slide repositories (`*-slides`, created from
 [`workshop-slides-template`](https://github.com/workshops-de/workshop-slides-template)).
 
-| Type    | Name                                  | Use it to …                                                        |
-| ------- | ------------------------------------- | ------------------------------------------------------------------ |
-| Command | `/workshops-slides:create-workshop`   | generate a complete workshop repository                            |
-| Command | `/workshops-slides:plan-curriculum`   | plan a curriculum without generating files                         |
-| Skill   | `workshop-slides`                     | generate lessons, slides and tasks in the template structure       |
-| Skill   | `lesson-section-interview`            | define one lesson section in an interview with the trainer         |
-| Skill   | `lesson-migration`                    | migrate raw Slidev slides into a 4-MAT lesson                      |
-| Skill   | `lesson-review`                       | review a lesson for duplicates, tone, examples and slide quality   |
-| Skill   | `slidev-authoring`                    | follow the slide conventions (4-MAT, layouts, code blocks)         |
-| Skill   | `course-content`                      | follow the lesson and task conventions (lesson.yml, task.yml, …)   |
-| Skill   | `git-conventions`                     | write Conventional Commits and branch names                        |
+| Skill                       | Use it to …                                                      |
+| --------------------------- | ---------------------------------------------------------------- |
+| `lesson-section-interview`  | define one lesson section in an interview with the trainer      |
+| `lesson-migration`          | migrate raw Slidev slides into a 4-MAT lesson                   |
+| `lesson-review`             | review a lesson for duplicates, tone, examples and slide quality|
+| `slidev-authoring`          | follow the slide conventions (4-MAT, layouts, code blocks)      |
+| `course-content`            | follow the lesson and task conventions (lesson.yml, task.yml, …)|
+| `git-conventions`           | write Conventional Commits and branch names                     |
 
 Skills load automatically when they fit the task, or explicitly with `/workshops-slides:<skill>`.
 

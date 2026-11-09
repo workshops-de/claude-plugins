@@ -11,7 +11,7 @@
     {
       "name": "workshops-slides",
       "source": "./plugins/workshops-slides",
-      "description": "Create and maintain workshops.de Slidev slide repositories: workshop generation, lessons, tasks, reviews and conventions"
+      "description": "Create and maintain workshops.de Slidev slide repositories: lessons, tasks, reviews and conventions"
     }
   ]
 }

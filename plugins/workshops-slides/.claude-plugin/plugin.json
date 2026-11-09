@@ -1,6 +1,6 @@
 {
   "name": "workshops-slides",
-  "description": "Create and maintain workshops.de Slidev slide repositories: workshop generation, lessons, tasks, reviews and conventions",
+  "description": "Create and maintain workshops.de Slidev slide repositories: lessons, tasks, reviews and conventions",
   "author": {
     "name": "workshops.de",
     "url": "https://workshops.de"
