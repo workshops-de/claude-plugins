@@ -11,12 +11,17 @@
     {
       "name": "workshops-courses",
       "source": "./plugins/workshops-courses",
-      "description": "workshops.de course conventions for all trainings: lessons, tasks, German translations and git conventions"
+      "description": "workshops.de course conventions for all trainings: lessons, tasks, solution commits, German translations and git conventions"
     },
     {
       "name": "workshops-slidev",
       "source": "./plugins/workshops-slidev",
       "description": "workshops.de Slidev slides: slide conventions, section outlines, migration of raw slides and lesson reviews"
+    },
+    {
+      "name": "workshops-google-slides",
+      "source": "./plugins/workshops-google-slides",
+      "description": "workshops.de Google Slides: review and update lesson slides via the Google Slides MCP, layouts and Code Window slides with syntax highlighting"
     }
   ]
 }

@@ -11,7 +11,8 @@ Lessons and tasks in `lessons/`, whether the slides are in Slidev or Google Slid
 
 | Skill               | Use it to …                                                          |
 | ------------------- | -------------------------------------------------------------------- |
-| `course-content`    | follow the lesson and task conventions (lesson.yml, task.yml, …)     |
+| `course-content`    | follow the lesson and task conventions (lesson.yml, task.yml, body/hint/bonus) |
+| `solution-commits`  | plan and integrate a task's sample solution as `solution--*` commit  |
 | `translate-task-de` | translate tasks into German (`*.de.md`), or update stale ones        |
 | `git-conventions`   | write Conventional Commits and branch names                          |
 
@@ -27,13 +28,28 @@ and single-deck Slidev repositories. Depends on `workshops-courses`.
 | `lesson-migration`         | migrate raw Slidev slides into a 4-MAT lesson                    |
 | `lesson-review`            | review a lesson for duplicates, tone, examples and slide quality |
 
+### `workshops-google-slides`: additionally for Google Slides workshops
+
+Lessons with `slides_type: google_slides` (e.g. `angular-workshop-slides`). Depends on `workshops-courses` and needs
+a Google Slides MCP server, e.g. `google-slides-mcp@matteoantoci-plugins`.
+
+| Skill                  | Use it to …                                                                        |
+| ---------------------- | ---------------------------------------------------------------------------------- |
+| `google-slides-update` | find the slides affected by a lesson change, check 4-MAT, edit slides and code slides |
+
+### Framework-specific skills stay in the training repository
+
+Skills for one technology (e.g. `angular-developer` from `angular/skills` in `angular-workshop-slides`) are installed
+in that repository, not here. `solution-commits` uses them when they are present.
+
 Skills load automatically when they fit the task, or explicitly with `/<plugin>:<skill>`, e.g.
 `/workshops-courses:translate-task-de` or `/workshops-slidev:lesson-review`.
 
 ## Usage
 
 Every training repository enables the plugins in its committed `.claude/settings.json`. Slidev
-repositories enable both, Google Slides workshops only `workshops-courses`:
+repositories enable `workshops-courses` and `workshops-slidev`, Google Slides workshops `workshops-courses` and
+`workshops-google-slides`:
 
 ```json
 {
@@ -59,6 +75,7 @@ Outside a training repository, add them yourself:
 /plugin marketplace add workshops-de/claude-plugins
 /plugin install workshops-courses@workshops-de
 /plugin install workshops-slidev@workshops-de
+/plugin install workshops-google-slides@workshops-de
 ```
 
 **Cloud sessions** (claude.ai/code) do not load plugins from a repository's `.claude/settings.json`.

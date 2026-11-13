@@ -115,35 +115,72 @@ all, and update the German files whenever the English ones change.
 
 ## Markdown Content Guidelines
 
+### Markdown renderer
+
+The eClassroom renders `body.md`, `hint.md` and `bonus.md` with [Earmark](https://earmark.hexdocs.pm/readme.html),
+the Elixir Markdown parser. Earmark treats a matched pair of block-level HTML tags (e.g. `<details>...</details>`)
+as a single **verbatim** node: it does not parse Markdown (code fences, inline code, bold, …) nested inside raw HTML.
+
+- Do not use `<details>`/`<summary>` or any other raw-HTML wrapping in `body.md`, `hint.md` or `bonus.md`.
+  Formatted content inside renders as flat, unstyled text in the eClassroom (confirmed live).
+- If someone explicitly asks for a collapsible section, explain this limitation and suggest plain Markdown instead.
+- Existing tasks may still contain `<details>` blocks; replace them when you touch the task.
+
+### Inline code highlighting
+
+The eClassroom highlights code with [Shiki](https://shiki.style/packages/rehype#inline-code)
+(`inline: 'tailing-curly-colon'`). Highlight inline code by appending a `{:<lang>}` marker **inside** the backticks,
+directly after the code:
+
+| Write this                     | Instead of this           | Language |
+| ------------------------------ | ------------------------- | -------- |
+| `` `input(){:ts}` ``           | `` `input()` ``           | `ts`     |
+| `` `[content]{:html}` ``       | `` `[content]` ``         | `html`   |
+| `` `<input>{:html}` ``         | `_<input>_`               | `html`   |
+| `` `count = signal(0){:ts}` `` | `` `count = signal(0)` `` | `ts`     |
+
+- Applies to `body.md`, `hint.md` and `bonus.md`.
+- The marker sits inside the backticks: `` `code{:ts}` `` ✅, `` `code`{:ts} `` ❌.
+- Always use a marker for code (TypeScript → `ts`, templates → `html`, styles → `css`, shell → `bash`, Java → `java`,
+  Python → `python`, …); a code span without marker stays unhighlighted.
+- Use it for code snippets, identifiers, bindings and API calls. Plain terms, file names and paths (`src/app/app.ts`)
+  and UI labels stay without a marker or in _italics_.
+- When updating an existing task, add the marker to the inline code you touch; do not rewrite untouched tasks.
+- Never put JS template strings (backticks, `${...}`) into inline code; the backticks break the inline marker.
+  Describe the value in prose or _italics_ instead (e.g. _/books/:isbn_) and show the full snippet in a fenced block
+  in `hint.md`.
+- Code blocks use fenced blocks with a language (` ```ts `, ` ```html `), as in the
+  [hint template](references/hint.template.md).
+
 ### body.md - Main Task Description
 
-- Start with a brief overview of what the participant will accomplish
-- List prerequisites if any
-- Provide clear, numbered steps
-- Include code examples with proper syntax highlighting
-- End with success criteria (checklist format)
-- Add troubleshooting section for common issues
+The description guides the participant to solve the task alone. Give every detail that is needed, but no wall of
+text: include only what is really needed.
+
+- One step per bullet with a bold heading, steps separated by `---` for readability
+- Follow the [body template](references/body.template.md)
 
 ### hint.md - Hints
 
-- Use collapsible `<details>` elements for progressive hints
-- Number hints from easiest to most revealing
-- Don't give away the full solution
+Hints are a safe harbour for participants who are learning a completely new area: easy to follow, no tricks,
+straightforward code that makes the solution work.
 
-```markdown
-<details>
-<summary>💡 Hint 1: Brief description</summary>
-
-Hint content here...
-
-</details>
-```
+- Follow the order of the steps in `body.md`, one hint per step, separated by `---`
+- Give the technical details and the code snippets (with the file name as first comment) needed for each step
+- Follow the [hint template](references/hint.template.md)
 
 ### bonus.md - Bonus Challenges
 
-- Provide optional advanced challenges
-- Should extend the main task, not replace it
-- Clearly mark difficulty level
+Bonus tasks are for fast and more experienced participants.
+
+- When you write a new task, ask whether to add a bonus and suggest one that fits the topic
+- Extend the main task, do not replace it
+- Follow the [body template](references/body.template.md)
+
+### Task titles
+
+When the task has a solution commit (`git_tag_completed: solution--<topic>-<part>`), derive the task title from the
+topic parts of the tag.
 
 ### trainer_hint.md - Trainer Notes
 
@@ -246,9 +283,9 @@ This enables:
 
 - [ ] All required files present (`task.yml`, `body.md`)
 - [ ] Task title is clear and descriptive
-- [ ] Steps are numbered and easy to follow
-- [ ] Code examples have correct language annotation
+- [ ] Steps have bold headings, are separated by `---` and easy to follow
+- [ ] Hints follow the order of the steps and contain working code
+- [ ] Code blocks have a language, inline code has a `{:lang}` marker
+- [ ] No `<details>`/`<summary>` or other raw HTML in body, hint or bonus
 - [ ] Images have alt text and are optimized
-- [ ] Success criteria are specific and measurable
-- [ ] Hints don't give away the solution immediately
 - [ ] Trainer notes cover common issues

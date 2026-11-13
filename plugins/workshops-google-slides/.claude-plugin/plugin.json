@@ -1,0 +1,13 @@
+{
+  "name": "workshops-google-slides",
+  "description": "workshops.de Google Slides: review and update lesson slides via the Google Slides MCP, layouts and Code Window slides with syntax highlighting",
+  "author": {
+    "name": "workshops.de",
+    "url": "https://workshops.de"
+  },
+  "homepage": "https://github.com/workshops-de/claude-plugins",
+  "repository": "https://github.com/workshops-de/claude-plugins",
+  "license": "MIT",
+  "keywords": ["workshops.de", "google-slides", "slides", "4-mat"],
+  "dependencies": ["workshops-courses"]
+}

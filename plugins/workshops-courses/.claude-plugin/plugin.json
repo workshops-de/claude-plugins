@@ -1,6 +1,6 @@
 {
   "name": "workshops-courses",
-  "description": "workshops.de course conventions for all trainings: lessons, tasks, German translations and git conventions",
+  "description": "workshops.de course conventions for all trainings: lessons, tasks, solution commits, German translations and git conventions",
   "author": {
     "name": "workshops.de",
     "url": "https://workshops.de"
@@ -8,5 +8,5 @@
   "homepage": "https://github.com/workshops-de/claude-plugins",
   "repository": "https://github.com/workshops-de/claude-plugins",
   "license": "MIT",
-  "keywords": ["workshops.de", "training", "lessons", "tasks", "translation"]
+  "keywords": ["workshops.de", "training", "lessons", "tasks", "solutions", "translation"]
 }
